@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dotnet-Development.Suite.Service-03805de9-7b99-4ee6-adfd-8584126e6526</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="7.0.0" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Development.Suite.Ipc.Tcp\Development.Suite.Ipc.Tcp.csproj" />
+    <ProjectReference Include="..\Development.Suite.Logging\Development.Suite.Logging.csproj" />
+    <ProjectReference Include="..\Development.Suite.Plugin\Development.Suite.Plugin.csproj" />
+  </ItemGroup>
+</Project>
