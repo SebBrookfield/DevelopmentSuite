@@ -17,9 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Development.Suite.Plugin", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Development.Suite.Plugin.ConsoleRunner", "Development.Suite.Plugin.ConsoleRunner\Development.Suite.Plugin.ConsoleRunner.csproj", "{46DFB461-C77F-4CDE-8D4F-1590788C9C2D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test", "Test\Test.csproj", "{7F18B1B4-0F59-4B9F-99CD-FAE885F60CC9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Development.Suite.Service.TestClient", "Development.Suite.Service.TestClient\Development.Suite.Service.TestClient.csproj", "{7F18B1B4-0F59-4B9F-99CD-FAE885F60CC9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Development.Suite.Ipc.MessageHandling", "Development.Suite.Ipc.MessageHandling\Development.Suite.Ipc.MessageHandling.csproj", "{67EBA299-9D2A-439E-93CE-B559AE2BF773}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Development.Suite.Ipc.MessageHandling", "Development.Suite.Ipc.MessageHandling\Development.Suite.Ipc.MessageHandling.csproj", "{67EBA299-9D2A-439E-93CE-B559AE2BF773}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

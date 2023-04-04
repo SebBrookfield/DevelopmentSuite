@@ -1,8 +1,7 @@
 namespace Development.Suite.Ipc;
 
-public interface IIpcServer : IDisposable
+public interface IIpcServer : IIpcSender, IDisposable
 {
     Task Start(CancellationToken cancellationToken);
-    void Send(IpcMessage message);
     IEnumerable<IpcMessage> Messages { get; }
 }

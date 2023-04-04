@@ -1,23 +1,31 @@
-<Project Sdk="Microsoft.NET.Sdk.Worker">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <OutputType>Exe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
-    <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>dotnet-Development.Suite.Service-03805de9-7b99-4ee6-adfd-8584126e6526</UserSecretsId>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="7.0.0" />
+    <None Remove="appsettings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Development.Suite.Ipc.MessageHandling\Development.Suite.Ipc.MessageHandling.csproj" />
     <ProjectReference Include="..\Development.Suite.Ipc.Tcp\Development.Suite.Ipc.Tcp.csproj" />
-    <ProjectReference Include="..\Development.Suite.Logging\Development.Suite.Logging.csproj" />
-    <ProjectReference Include="..\Development.Suite.Plugin\Development.Suite.Plugin.csproj" />
+    <ProjectReference Include="..\Development.Suite.Plugin.ConsoleRunner\Development.Suite.Plugin.ConsoleRunner.csproj" />
   </ItemGroup>
+
 </Project>

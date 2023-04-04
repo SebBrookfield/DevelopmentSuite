@@ -1,4 +1,5 @@
 using Development.Suite.Ipc;
+using Development.Suite.Ipc.MessageHandling;
 using Development.Suite.Logging;
 
 namespace Development.Suite.Service;
