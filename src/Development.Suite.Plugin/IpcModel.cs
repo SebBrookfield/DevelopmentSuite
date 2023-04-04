@@ -2,15 +2,15 @@
 
 public class IpcModel
 {
-    public Guid Id { get; }
+    public Guid MessageId { get; }
 
     public IpcModel()
     {
-        Id = Guid.NewGuid();
+        MessageId = Guid.NewGuid();
     }
 
     public IpcModel(IpcModel ipcModel)
     {
-        Id = ipcModel.Id;
+        MessageId = ipcModel.MessageId;
     }
 }

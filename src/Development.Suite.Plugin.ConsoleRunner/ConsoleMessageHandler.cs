@@ -6,17 +6,17 @@ namespace Development.Suite.Plugin.ConsoleRunner;
 public class ConsoleMessageHandler : IMessageHandler<ConsoleMessage>
 {
     private readonly IDevelopmentSuiteLogger<ConsoleMessageHandler> _logger;
-    private readonly IMessageSender _messageSender;
+    private readonly IIpcMessageSender _ipcMessageSender;
 
-    public ConsoleMessageHandler(IDevelopmentSuiteLogger<ConsoleMessageHandler> logger, IMessageSender messageSender)
+    public ConsoleMessageHandler(IDevelopmentSuiteLogger<ConsoleMessageHandler> logger, IIpcMessageSender ipcMessageSender)
     {
         _logger = logger;
-        _messageSender = messageSender;
+        _ipcMessageSender = ipcMessageSender;
     }
 
     public void HandleMessage(ConsoleMessage message)
     {
-        _messageSender.SendMessage(new ConsoleMessage(message)
+        _ipcMessageSender.SendMessage(new ConsoleMessage(message)
         {
             Reply = RunCommand(message.Command)
         });

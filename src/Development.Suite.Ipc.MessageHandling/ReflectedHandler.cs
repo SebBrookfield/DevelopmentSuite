@@ -1,8 +1,8 @@
 ﻿using Development.Suite.Plugin;
 
-namespace Development.Suite.Service;
+namespace Development.Suite.Ipc.MessageHandling;
 
-public class ReflectedHandler : IMessageHandler<object>
+public class ReflectedHandler : IMessageHandler<IpcModel>
 {
     public string Name { get; }
 
@@ -16,7 +16,7 @@ public class ReflectedHandler : IMessageHandler<object>
         Name = handlerType.FullName ?? handlerType.Name;
     }
 
-    public void HandleMessage(object message)
+    public void HandleMessage(IpcModel message)
     {
         _handle.Invoke(message);
     }

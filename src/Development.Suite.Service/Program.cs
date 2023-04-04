@@ -1,6 +1,7 @@
 using System.Reflection;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Development.Suite.Ipc.MessageHandling;
 using Development.Suite.Ipc.Tcp;
 using Development.Suite.Logging;
 using Development.Suite.Plugin;
@@ -31,8 +32,8 @@ namespace Development.Suite.Service
                 {
                     services.AddHostedService<IpcWorker>();
                     services.AddTcpIpcServer(context.Configuration);
-                    services.AddSingleton<HandlerResolver>();
-                    services.AddSingleton<IMessageSender, MessageSender>();
+                    services.AddSingleton<IIpcMessageHandler, IpcMessageHandler>();
+                    services.AddSingleton<IIpcMessageSender, IpcMessageSender>();
                 })
                 .AddLogging()
                 .Build()
