@@ -55,8 +55,8 @@ public class ConsoleMessageHandler : IMessageHandler<ConsoleMessage>
             var exited = process.WaitForExit(1000);
             _logger.LogDebug("Process wait ended.");
 
-            var error = process.StandardError.ReadToEnd();
-            var output = process.StandardOutput.ReadToEnd();
+            var error = process.StandardError.ReadToEnd().Trim();
+            var output = process.StandardOutput.ReadToEnd().Trim();
 
             _logger.LogDebug($"Process has{(exited ? null : " not")} exited");
             _logger.LogDebug("Process result", new {output, error});
