@@ -17,7 +17,7 @@ public class MessageSender : IMessageSender
 
     public void SendMessage<TMessage>(TMessage message) where TMessage : class
     {
-        _logger.LogDebug("Sending message {message}", message);
+        _logger.LogDebug("Sending message {@message}", message);
         _ipcServer.Send(IpcMessage.ToIpcMessage(message));
     }
 }

@@ -1,18 +1,72 @@
 ﻿using Development.Suite.Logging;
+using System.Diagnostics;
 
 namespace Development.Suite.Plugin.ConsoleRunner;
 
 public class ConsoleMessageHandler : IMessageHandler<ConsoleMessage>
 {
-    private IDevelopmentSuiteLogger _logger;
+    private readonly IDevelopmentSuiteLogger<ConsoleMessageHandler> _logger;
+    private readonly IMessageSender _messageSender;
 
-    public ConsoleMessageHandler(IDevelopmentSuiteLogger<ConsoleMessageHandler> logger)
+    public ConsoleMessageHandler(IDevelopmentSuiteLogger<ConsoleMessageHandler> logger, IMessageSender messageSender)
     {
         _logger = logger;
+        _messageSender = messageSender;
     }
 
     public void HandleMessage(ConsoleMessage message)
     {
-        _logger.LogDebug("Messaageeeee", message);
+        _messageSender.SendMessage(new ConsoleMessage(message)
+        {
+            Reply = RunCommand(message.Command)
+        });
+    }
+
+    private string? RunCommand(string command)
+    {
+        try
+        {
+            var processInfo = new
+            {
+                FileName = "cmd",
+                Arguments = "/c " + command,
+                UseShellExecute = false,
+                CreateNoWindow = true,
+                RedirectStandardError = true,
+                RedirectStandardOutput = true
+            };
+
+            _logger.LogDebug("Running {@process}", processInfo);
+
+            var process = Process.Start(new ProcessStartInfo
+            {
+                FileName = processInfo.FileName,
+                Arguments = processInfo.Arguments,
+                UseShellExecute = processInfo.UseShellExecute,
+                CreateNoWindow = processInfo.CreateNoWindow,
+                RedirectStandardError = processInfo.RedirectStandardError,
+                RedirectStandardOutput = processInfo.RedirectStandardOutput
+            });
+
+            if (process == null)
+                return null;
+
+            _logger.LogDebug("Started process, waiting for exit...");
+            var exited = process.WaitForExit(1000);
+            _logger.LogDebug("Process wait ended.");
+
+            var error = process.StandardError.ReadToEnd();
+            var output = process.StandardOutput.ReadToEnd();
+
+            _logger.LogDebug($"Process has{(exited ? null : " not")} exited");
+            _logger.LogDebug("Process result", new {output, error});
+
+            return error + output;
+        }
+        catch (Exception exception)
+        {
+            _logger.LogError(exception, "Exception");
+            return exception.ToString();
+        }
     }
 }
