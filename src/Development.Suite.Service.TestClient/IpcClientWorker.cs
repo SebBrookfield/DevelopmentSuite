@@ -26,7 +26,7 @@ public class IpcClientWorker : BackgroundService
         await foreach (var message in _ipcClient.Messages.WithCancellation(stoppingToken))
         {
             _logger.LogDebug("Received {@message}", message);
-            _ipcMessageHandler.HandleMessage(message);
+            await _ipcMessageHandler.HandleMessage(message);
             _logger.LogDebug("Waiting for next message");
         }
         

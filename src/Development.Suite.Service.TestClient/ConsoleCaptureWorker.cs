@@ -18,21 +18,16 @@ public class ConsoleCaptureWorker : BackgroundService
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        await Task.Run(() => SendMessages(stoppingToken), stoppingToken);
-    }
-    
-    private void SendMessages(CancellationToken stoppingToken)
-    {
         while (!stoppingToken.IsCancellationRequested)
         {
-            var line = Console.ReadLine();
+            var line = await Task.Run(Console.ReadLine, stoppingToken);
 
             if (string.IsNullOrEmpty(line))
                 continue;
 
             var consoleMessage = new ConsoleMessage { Command = line };
             _logger.LogDebug("Sending {@consoleMessage}", consoleMessage);
-            _ipcMessageSender.SendMessage(consoleMessage);
+            await _ipcMessageSender.SendMessage(consoleMessage);
         }
     }
 }
