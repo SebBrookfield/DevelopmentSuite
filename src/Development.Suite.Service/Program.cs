@@ -17,6 +17,10 @@ namespace Development.Suite.Service
                 .ConfigureContainer<ContainerBuilder>(builder =>
                 {
                     var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "plugins");
+
+                    if (!Directory.Exists(path)) 
+                        Directory.CreateDirectory(path);
+
                     foreach (var assemblyPath in Directory.GetFiles(path, "*.dll", SearchOption.AllDirectories))
                     {
                         var assemblyBytes = File.ReadAllBytes(assemblyPath);
