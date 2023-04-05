@@ -16,25 +16,23 @@ public class ConsoleCaptureWorker : BackgroundService
         _ipcMessageSender = ipcMessageSender;
     }
 
-    protected override Task ExecuteAsync(CancellationToken stoppingToken)
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        return Task.Run(() => Execute(stoppingToken), stoppingToken);
+        await Task.Run(() => SendMessages(stoppingToken), stoppingToken);
     }
-
-    private Task Execute(CancellationToken stoppingToken)
+    
+    private void SendMessages(CancellationToken stoppingToken)
     {
         while (!stoppingToken.IsCancellationRequested)
         {
             var line = Console.ReadLine();
-            var consoleMessage = new ConsoleMessage
-            {
-                Command = line
-            };
 
-            _logger.LogDebug("client tx: {@consoleMessage}", consoleMessage);
+            if (string.IsNullOrEmpty(line))
+                continue;
+
+            var consoleMessage = new ConsoleMessage { Command = line };
+            _logger.LogDebug("Sending {@consoleMessage}", consoleMessage);
             _ipcMessageSender.SendMessage(consoleMessage);
         }
-
-        return Task.CompletedTask;
     }
 }

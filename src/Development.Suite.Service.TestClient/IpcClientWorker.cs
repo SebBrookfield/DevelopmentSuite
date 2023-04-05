@@ -18,23 +18,18 @@ public class IpcClientWorker : BackgroundService
         _ipcMessageHandler = ipcMessageHandler;
     }
 
-    protected override Task ExecuteAsync(CancellationToken stoppingToken)
-    {
-        return Task.Run(() => Execute(stoppingToken), stoppingToken);
-    }
-
-    private async Task Execute(CancellationToken stoppingToken)
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         _logger.LogDebug("Starting");
         await _ipcClient.Start(stoppingToken);
 
-        foreach (var message in _ipcClient.Messages)
+        await foreach (var message in _ipcClient.Messages.WithCancellation(stoppingToken))
         {
             _logger.LogDebug("Received {@message}", message);
             _ipcMessageHandler.HandleMessage(message);
             _logger.LogDebug("Waiting for next message");
         }
-
+        
         _logger.LogDebug("Stopped.");
     }
 }

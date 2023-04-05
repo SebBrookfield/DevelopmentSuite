@@ -2,5 +2,5 @@
 
 public interface IIpcSender
 {
-    void Send(IpcMessage message);
+    Task Send(IpcMessage message);
 }

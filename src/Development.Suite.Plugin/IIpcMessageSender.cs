@@ -2,5 +2,5 @@
 
 public interface IIpcMessageSender
 {
-    void SendMessage<TMessage>(TMessage message) where TMessage : IpcModel;
+    Task SendMessage<TMessage>(TMessage message) where TMessage : IpcModel;
 }

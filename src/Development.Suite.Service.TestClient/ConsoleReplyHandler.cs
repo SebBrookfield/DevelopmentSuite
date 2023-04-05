@@ -13,8 +13,9 @@ public class ConsoleReplyHandler : IMessageHandler<ConsoleMessage>
         _logger = logger;
     }
 
-    public void HandleMessage(ConsoleMessage message)
+    public Task HandleMessage(ConsoleMessage message)
     {
         _logger.LogInformation(message.Reply);
+        return Task.CompletedTask;
     }
 }

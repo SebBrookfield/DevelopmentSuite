@@ -14,9 +14,9 @@ public class ConsoleMessageHandler : IMessageHandler<ConsoleMessage>
         _ipcMessageSender = ipcMessageSender;
     }
 
-    public void HandleMessage(ConsoleMessage message)
+    public async Task HandleMessage(ConsoleMessage message)
     {
-        _ipcMessageSender.SendMessage(new ConsoleMessage(message)
+        await _ipcMessageSender.SendMessage(new ConsoleMessage(message)
         {
             Reply = RunCommand(message.Command)
         });

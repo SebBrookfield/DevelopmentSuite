@@ -1,4 +1,5 @@
-﻿using Development.Suite.Plugin;
+﻿using System.Reflection;
+using Development.Suite.Plugin;
 
 namespace Development.Suite.Ipc.MessageHandling;
 
@@ -6,18 +7,28 @@ public class ReflectedHandler : IMessageHandler<IpcModel>
 {
     public string Name { get; }
 
-    private readonly Action<object> _handle;
+    private readonly MethodInfo? _method;
+    private readonly object _handler;
 
     public ReflectedHandler(object handler)
     {
         var handlerType = handler.GetType();
-        var method = handlerType.GetMethod(nameof(HandleMessage));
-        _handle = message => method?.Invoke(handler, new[] { message });
+        _handler = handler;
+        _method = handlerType.GetMethod(nameof(HandleMessage));
+        
         Name = handlerType.FullName ?? handlerType.Name;
     }
 
-    public void HandleMessage(IpcModel message)
+    public async Task HandleMessage(IpcModel message)
     {
-        _handle.Invoke(message);
+        if (_method == null)
+            return;
+
+        var task = _method.Invoke(_handler, new object?[] { message }) as Task;
+
+        if (task == null) 
+            return;
+
+        await task;
     }
 }

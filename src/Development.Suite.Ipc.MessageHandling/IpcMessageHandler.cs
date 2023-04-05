@@ -7,7 +7,7 @@ namespace Development.Suite.Ipc.MessageHandling;
 
 public interface IIpcMessageHandler
 {
-    void HandleMessage(IpcMessage message);
+    Task HandleMessage(IpcMessage message);
 }
 
 public class IpcMessageHandler : IIpcMessageHandler
@@ -35,7 +35,7 @@ public class IpcMessageHandler : IIpcMessageHandler
             .ToLookup(t => t.FullName ?? t.Name);
     }
 
-    public void HandleMessage(IpcMessage message)
+    public async Task HandleMessage(IpcMessage message)
     {
         var type = _typesByName[message.FullName].FirstOrDefault();
 
@@ -51,19 +51,21 @@ public class IpcMessageHandler : IIpcMessageHandler
             return;
         }
 
-        var handlers = ResolveHandlers(type);
+        var handleTasks = ResolveHandlers(type).Select(handler => Handle(handler, deserializedMessage));
 
-        foreach (var handler in handlers)
+        await Task.WhenAll(handleTasks);
+    }
+
+    private async Task Handle(ReflectedHandler handler, IpcModel message)
+    {
+        _logger.LogDebug($"Calling {handler.Name}.{nameof(ReflectedHandler.HandleMessage)}");
+        try
         {
-            _logger.LogDebug($"Calling {handler.Name}.{nameof(ReflectedHandler.HandleMessage)}");
-            try
-            {
-                handler.HandleMessage(deserializedMessage);
-            }
-            catch (Exception exception)
-            {
-                _logger.LogError(exception, "Failed to handle message.");
-            }
+            await handler.HandleMessage(message);
+        }
+        catch (Exception exception)
+        {
+            _logger.LogError(exception, "Failed to handle message.");
         }
     }
 

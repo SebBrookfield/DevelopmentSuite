@@ -22,7 +22,7 @@ public class IpcWorker : BackgroundService
         _logger.LogDebug("Starting");
         await _ipcServer.Start(stoppingToken);
 
-        foreach (var message in _ipcServer.Messages)
+        await foreach (var message in _ipcServer.Messages.WithCancellation(stoppingToken))
         {
             _logger.LogDebug("Received {@message}", message);
             _ipcMessageHandler.HandleMessage(message);

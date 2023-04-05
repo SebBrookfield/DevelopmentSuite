@@ -13,8 +13,8 @@ public abstract class TcpIpcBase
 
     private TcpClient? _client;
     private NetworkStream? _stream;
-    private BinaryWriter? _binaryWriter;
-    private BinaryReader? _binaryReader;
+    private StreamWriter? _streamWriter;
+    private StreamReader? _streamReader;
     private bool _active;
 
     private protected TcpIpcBase(TcpIpcConfig tcpIpcConfig, IDevelopmentSuiteLogger<TcpIpcBase> logger)
@@ -38,76 +38,87 @@ public abstract class TcpIpcBase
         CancellationToken = cancellationToken;
         _client = await GetTcpClient();
         _stream = _client.GetStream();
-        _binaryWriter = new BinaryWriter(_stream);
-        _binaryReader = new BinaryReader(_stream);
+        _streamWriter = new StreamWriter(_stream);
+        _streamReader = new StreamReader(_stream);
         _active = true;
     }
 
-    public IEnumerable<IpcMessage> Messages => ReadMessages();
+    public IAsyncEnumerable<IpcMessage> Messages => ReadMessages();
 
-    private IEnumerable<IpcMessage> ReadMessages()
+    private async IAsyncEnumerable<IpcMessage> ReadMessages()
     {
         if (!_active)
             throw new TcpIpcNotStartedException();
 
-        var bytes = new List<byte>(4096);
-
         while (!CancellationToken.IsCancellationRequested)
         {
-            byte readByte;
+            Logger.LogDebug("Reading stream");
+            var streamedString = await ReadStream();
+            Logger.LogDebug("Parsing message {@streamedString}", streamedString ?? "");
+            var message = ParseMessage(streamedString);
 
-            try
-            {
-                readByte = _binaryReader!.ReadByte();
-            }
-            catch (IOException)
-            {
-
-                Restart();
-                continue;
-            }
-
-            if (readByte == 0x04)
-            {
-                var messageString = Encoding.Default.GetString(bytes.ToArray()).Replace("\0", string.Empty).Trim();
-                yield return JsonSerializer.Deserialize<IpcMessage>(messageString)!;
-                bytes.Clear();
-            }
-            else
-            {
-                bytes.Add(readByte);
-            }
-
+            if (message != null)
+                yield return message;
         }
     }
 
-    private void Restart()
+    private IpcMessage? ParseMessage(string? message)
+    {
+        var json = message?.Trim();
+
+        if (string.IsNullOrWhiteSpace(json))
+            return null;
+
+        try
+        {
+            return JsonSerializer.Deserialize<IpcMessage>(json)!;
+        }
+        catch(Exception exception)
+        {
+            Logger.LogError(exception, "Failed to deserialize json. {@json}", json);
+            return null;
+        }
+    }
+
+    private async Task<string?> ReadStream()
+    {
+        try
+        {
+            return await _streamReader!.ReadLineAsync(CancellationToken);
+        }
+        catch (IOException)
+        {
+            await Restart();
+            return null;
+        }
+    }
+
+    private async Task Restart()
     {
         Logger.LogInformation("Restarting");
         Dispose();
         _active = false;
-        Start(CancellationToken).GetAwaiter().GetResult();
+        await Start(CancellationToken);
     }
 
-    public void Send(IpcMessage message)
+    public async Task Send(IpcMessage message)
     {
         if (!_active)
             throw new TcpIpcNotStartedException();
 
-        Logger.LogDebug("Writing message bytes");
-        foreach (var @byte in Encoding.Default.GetBytes(JsonSerializer.Serialize(message)))
-            _binaryWriter!.Write(@byte);
-
+        Logger.LogDebug("Serializing message");
+        var json = JsonSerializer.Serialize(message);
+        Logger.LogDebug("Writing to stream");
+        await _streamWriter!.WriteLineAsync(json);
         Logger.LogDebug("Flushing stream");
-        _binaryWriter!.Write(0x04);
-        _binaryWriter.Flush();
+        await _streamWriter.FlushAsync();
         Logger.LogDebug("Flushed");
     }
 
     public void Dispose()
     {
-        _binaryWriter?.Dispose();
-        _binaryReader?.Dispose();
+        _streamWriter?.Dispose();
+        _streamReader?.Dispose();
         _stream?.Dispose();
         _client?.Dispose();
     }
