@@ -1,8 +1,9 @@
 ﻿namespace Development.Suite.Plugin.ConsoleRunner;
 
+[Serializable]
 public class ConsoleMessage : IpcModel
 {
-    public string Command { get; set; }
+    public string? Command { get; set; }
     public string? Reply { get; set; }
 
     public ConsoleMessage()

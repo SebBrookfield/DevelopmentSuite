@@ -2,6 +2,7 @@
 
 namespace Development.Suite.Plugin.ConsoleRunner;
 
+// ReSharper disable once UnusedType.Global
 public class AutofacModule : Module
 {
     protected override void Load(ContainerBuilder builder)
