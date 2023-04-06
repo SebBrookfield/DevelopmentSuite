@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace Development.Suite.App.Controls
 {
@@ -32,6 +33,35 @@ namespace Development.Suite.App.Controls
         {
             get => (string)GetValue(IconProperty);
             set => SetValue(IconProperty, value);
+        }
+
+        public new void Focus()
+        {
+            var searchTermTextBox = FindVisualChild<TextBox>(this, "SearchTermTextBox");
+            searchTermTextBox?.Focus();
+        }
+
+        private static T? FindVisualChild<T>(DependencyObject parent, string? name = null) where T : FrameworkElement
+        {
+            var childCount = VisualTreeHelper.GetChildrenCount(parent);
+
+            if (childCount == 0)
+                return null;
+
+            for (var i = 0; i < childCount; i++)
+            {
+                var childObject = VisualTreeHelper.GetChild(parent, i);
+
+                if (childObject is T child && (name == null || child.Name == name))
+                    return child;
+
+                var result = FindVisualChild<T>(childObject, name);
+
+                if (result != null)
+                    return result;
+            }
+
+            return null;
         }
     }
 }

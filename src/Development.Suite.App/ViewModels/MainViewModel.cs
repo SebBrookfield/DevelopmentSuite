@@ -9,4 +9,9 @@ public class MainViewModel : BaseViewModel
         get => _searchTerm;
         set => SetProperty(ref _searchTerm, value);
     }
+
+    public void OnSetToBackground()
+    {
+        SearchTerm = null;
+    }
 }
