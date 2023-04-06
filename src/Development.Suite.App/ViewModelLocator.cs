@@ -1,19 +1,20 @@
-﻿using CommunityToolkit.Mvvm.DependencyInjection;
+﻿using Autofac;
 using Development.Suite.App.ViewModels;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Development.Suite.App
 {
     public class ViewModelLocator
     {
+        private readonly IContainer _container;
+
         public ViewModelLocator()
         {
-            Ioc.Default.ConfigureServices(
-                new ServiceCollection()
-                    .AddTransient<MainViewModel>()
-                    .BuildServiceProvider());
+            var containerBuilder = new ContainerBuilder();
+            containerBuilder.RegisterModule<AutofacModule>();
+            _container = containerBuilder
+                .Build();
         }
 
-        public MainViewModel Main => Ioc.Default.GetRequiredService<MainViewModel>();
+        public MainViewModel Main => _container.Resolve<MainViewModel>();
     }
 }
