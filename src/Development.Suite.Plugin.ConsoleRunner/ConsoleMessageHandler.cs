@@ -60,7 +60,7 @@ public class ConsoleMessageHandler : IServiceMessageHandler<ConsoleMessage>
             var output = process.StandardOutput.ReadToEnd().Trim();
 
             _logger.LogDebug($"Process has{(exited ? null : " not")} exited");
-            _logger.LogDebug("Process result", new {output, error});
+            _logger.LogDebug("Process result @result", new {output, error});
 
             return error + output;
         }

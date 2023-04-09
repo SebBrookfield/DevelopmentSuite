@@ -1,8 +1,9 @@
 ﻿namespace Development.Suite.Ipc.Common;
 
+[Serializable]
 public class IpcModel
 {
-    public Guid MessageId { get; }
+    public Guid MessageId { get; set; }
 
     public IpcModel()
     {

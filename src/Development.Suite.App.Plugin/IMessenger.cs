@@ -6,7 +6,7 @@ public interface IMessenger
 {
     Task<TReply> Send<TReply, TMessage>(TMessage message) where TReply : IpcModel where TMessage : IpcModel;
 
-    Task<TReply> Send<TReply, TMessage>(TMessage message, CancellationToken cancellationToken)
+    Task<TReply> Send<TReply, TMessage>(TMessage message, TimeSpan timeout)
         where TReply : IpcModel where TMessage : IpcModel;
     void ReceiveMessage(IpcModel? message);
 }
