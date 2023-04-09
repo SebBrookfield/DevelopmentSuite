@@ -7,8 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Development.Suite.Ipc\Development.Suite.Ipc.csproj" />
-    <ProjectReference Include="..\Development.Suite.Logging\Development.Suite.Logging.csproj" />
     <ProjectReference Include="..\Development.Suite.Plugin\Development.Suite.Ipc.Common.csproj" />
   </ItemGroup>
 

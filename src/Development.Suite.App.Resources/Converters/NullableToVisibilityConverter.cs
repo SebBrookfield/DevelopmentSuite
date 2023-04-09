@@ -1,8 +1,7 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
-using Development.Suite.App.ExtensionMethods;
+using Development.Suite.Common.ExtensionMethods;
 
 namespace Development.Suite.App.Resources.Converters;
 

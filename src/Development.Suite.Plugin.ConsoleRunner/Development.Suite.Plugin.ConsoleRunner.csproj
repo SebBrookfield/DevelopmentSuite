@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Development.Suite.Logging\Development.Suite.Logging.csproj" />
-    <ProjectReference Include="..\Development.Suite.Plugin\Development.Suite.Plugin.csproj" />
+    <ProjectReference Include="..\Development.Suite.Plugin\Development.Suite.Ipc.Common.csproj" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">

@@ -34,6 +34,9 @@ public partial class MainWindow
     protected override void OnClosing(CancelEventArgs e)
     {
         _keyboardHook.Dispose();
+
+        if (DataContext is MainViewModel mainViewModel)
+            mainViewModel.OnClose();
     }
 
     private void SetToBackground()

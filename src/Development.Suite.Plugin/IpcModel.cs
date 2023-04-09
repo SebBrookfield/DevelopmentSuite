@@ -1,4 +1,4 @@
-﻿namespace Development.Suite.Plugin;
+﻿namespace Development.Suite.Ipc.Common;
 
 public class IpcModel
 {

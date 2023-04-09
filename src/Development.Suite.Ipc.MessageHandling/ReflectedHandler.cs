@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using Development.Suite.Plugin;
+using Development.Suite.Ipc.Common;
 
 namespace Development.Suite.Ipc.MessageHandling;
 

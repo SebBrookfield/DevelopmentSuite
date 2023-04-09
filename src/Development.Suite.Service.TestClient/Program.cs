@@ -2,11 +2,11 @@
 using Development.Suite.Ipc.MessageHandling;
 using Development.Suite.Ipc.Tcp;
 using Development.Suite.Logging;
-using Development.Suite.Plugin;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Reflection;
 using Autofac;
+using Development.Suite.Ipc.Common;
 using Development.Suite.Plugin.ConsoleRunner;
 using Serilog.Events;
 

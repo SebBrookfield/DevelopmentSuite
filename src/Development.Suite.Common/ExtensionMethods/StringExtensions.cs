@@ -1,4 +1,4 @@
-﻿namespace Development.Suite.App.ExtensionMethods;
+﻿namespace Development.Suite.Common.ExtensionMethods;
 
 public static class StringExtensions
 {

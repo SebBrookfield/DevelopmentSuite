@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Development.Suite.App.Plugin\Development.Suite.App.Plugin.csproj" />
+    <ProjectReference Include="..\Development.Suite.Ipc\Development.Suite.Ipc.csproj" />
+    <ProjectReference Include="..\Development.Suite.Logging\Development.Suite.Logging.csproj" />
+    <ProjectReference Include="..\Development.Suite.Plugin.ConsoleRunner\Development.Suite.Plugin.ConsoleRunner.csproj" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="robocopy &quot;$(ProjectDir)$(OutDir.TrimEnd('\'))&quot; &quot;$(SolutionDir)Development.Suite.App\$(OutDir.TrimEnd('\'))-windows7.0\plugins\$(AssemblyName)&quot; /mir&#xD;&#xA;if %25ERRORLEVEL%25 LEQ 1 exit 0" />
+  </Target>
+
+</Project>

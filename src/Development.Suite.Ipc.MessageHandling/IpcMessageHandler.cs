@@ -1,13 +1,13 @@
 ﻿using System.Text.Json;
 using Autofac;
+using Development.Suite.Ipc.Common;
 using Development.Suite.Logging;
-using Development.Suite.Plugin;
 
 namespace Development.Suite.Ipc.MessageHandling;
 
 public interface IIpcMessageHandler
 {
-    Task HandleMessage(IpcMessage message);
+    Task<IpcModel?> HandleMessage(IpcMessage message);
 }
 
 public class IpcMessageHandler : IIpcMessageHandler
@@ -35,25 +35,27 @@ public class IpcMessageHandler : IIpcMessageHandler
             .ToLookup(t => t.FullName ?? t.Name);
     }
 
-    public async Task HandleMessage(IpcMessage message)
+    public async Task<IpcModel?> HandleMessage(IpcMessage message)
     {
         var type = _typesByName[message.FullName].FirstOrDefault();
 
         if (type == null)
         {
             _logger.LogWarning("Skipping message as type cannot be found.", message);
-            return;
+            return null;
         }
 
         if (JsonSerializer.Deserialize(message.Message, type) is not IpcModel deserializedMessage)
         {
             _logger.LogWarning("Deserialized message was not an IpcModel.");
-            return;
+            return null;
         }
 
         var handleTasks = ResolveHandlers(type).Select(handler => Handle(handler, deserializedMessage));
 
         await Task.WhenAll(handleTasks);
+
+        return deserializedMessage;
     }
 
     private async Task Handle(ReflectedHandler handler, IpcModel message)

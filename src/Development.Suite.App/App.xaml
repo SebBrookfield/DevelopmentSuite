@@ -10,8 +10,8 @@
         <ResourceDictionary>
             <app:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Resources/Resources.xaml"/>
-                <ResourceDictionary Source="Controls/Controls.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Development.Suite.App.Resources;component/Resources.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Development.Suite.App.Controls;component/Controls.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

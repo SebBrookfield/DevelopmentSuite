@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Development.Suite.Ipc.Common;
 
 namespace Development.Suite.Plugin.ConsoleRunner;
 

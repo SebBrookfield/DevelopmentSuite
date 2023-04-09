@@ -1,5 +1,6 @@
 ﻿using Development.Suite.Logging;
 using System.Diagnostics;
+using Development.Suite.Ipc.Common;
 
 namespace Development.Suite.Plugin.ConsoleRunner;
 

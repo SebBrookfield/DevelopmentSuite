@@ -1,10 +1,10 @@
-using System.Reflection;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Development.Suite.Common.ExtensionMethods;
+using Development.Suite.Ipc.Common;
 using Development.Suite.Ipc.MessageHandling;
 using Development.Suite.Ipc.Tcp;
 using Development.Suite.Logging;
-using Development.Suite.Plugin;
 
 namespace Development.Suite.Service
 {
@@ -16,17 +16,7 @@ namespace Development.Suite.Service
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .ConfigureContainer<ContainerBuilder>(builder =>
                 {
-                    var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "plugins");
-                    
-                    if (!Directory.Exists(path)) 
-                        Directory.CreateDirectory(path);
-
-                    foreach (var assemblyPath in Directory.GetFiles(path, "*.dll", SearchOption.AllDirectories))
-                    {
-                        var assemblyBytes = File.ReadAllBytes(assemblyPath);
-                        var assembly = Assembly.Load(assemblyBytes);
-                        builder.RegisterAssemblyModules(assembly);
-                    }
+                    builder.LoadPlugins();
                 })
                 .UseWindowsService(config =>
                 {

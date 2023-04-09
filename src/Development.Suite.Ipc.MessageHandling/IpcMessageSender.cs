@@ -1,5 +1,5 @@
-﻿using Development.Suite.Logging;
-using Development.Suite.Plugin;
+﻿using Development.Suite.Ipc.Common;
+using Development.Suite.Logging;
 
 namespace Development.Suite.Ipc.MessageHandling;
 

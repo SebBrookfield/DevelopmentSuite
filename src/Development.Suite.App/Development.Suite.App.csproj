@@ -9,20 +9,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\Fonts\Font Awesome 6 Free-Solid-900.otf" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Development.Suite.App.Common\Development.Suite.App.Common.csproj" />
+    <ProjectReference Include="..\Development.Suite.App.Controls\Development.Suite.App.Controls.csproj" />
+    <ProjectReference Include="..\Development.Suite.App.Plugin\Development.Suite.App.Plugin.csproj" />
+    <ProjectReference Include="..\Development.Suite.App.Resources\Development.Suite.App.Resources.csproj" />
+    <ProjectReference Include="..\Development.Suite.Common\Development.Suite.Common.csproj" />
+    <ProjectReference Include="..\Development.Suite.Ipc.MessageHandling\Development.Suite.Ipc.MessageHandling.csproj" />
+    <ProjectReference Include="..\Development.Suite.Ipc.Tcp\Development.Suite.Ipc.Tcp.csproj" />
     <ProjectReference Include="..\Development.Suite.Logging\Development.Suite.Logging.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Resources\Fonts\Font Awesome 6 Free-Solid-900.otf" />
   </ItemGroup>
 
 </Project>

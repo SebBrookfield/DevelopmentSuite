@@ -1,4 +1,6 @@
-﻿namespace Development.Suite.Plugin.ConsoleRunner;
+﻿using Development.Suite.Ipc.Common;
+
+namespace Development.Suite.Plugin.ConsoleRunner;
 
 [Serializable]
 public class ConsoleMessage : IpcModel

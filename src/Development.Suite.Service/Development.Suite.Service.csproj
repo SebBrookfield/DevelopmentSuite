@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Worker">
+﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -15,9 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Development.Suite.Common\Development.Suite.Common.csproj" />
     <ProjectReference Include="..\Development.Suite.Ipc.MessageHandling\Development.Suite.Ipc.MessageHandling.csproj" />
     <ProjectReference Include="..\Development.Suite.Ipc.Tcp\Development.Suite.Ipc.Tcp.csproj" />
     <ProjectReference Include="..\Development.Suite.Logging\Development.Suite.Logging.csproj" />
-    <ProjectReference Include="..\Development.Suite.Plugin\Development.Suite.Plugin.csproj" />
+    <ProjectReference Include="..\Development.Suite.Plugin\Development.Suite.Ipc.Common.csproj" />
   </ItemGroup>
 </Project>
