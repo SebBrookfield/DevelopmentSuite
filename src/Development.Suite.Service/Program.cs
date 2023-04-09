@@ -26,7 +26,7 @@ namespace Development.Suite.Service
                 {
                     services.AddHostedService<IpcWorker>();
                     services.AddTcpIpcServer(context.Configuration);
-                    services.AddSingleton<IIpcMessageHandler, IpcMessageHandler>();
+                    services.AddSingleton<IIpcMessageHandler<IServiceMessageHandler>, IpcMessageHandler<IServiceMessageHandler>>();
                     services.AddSingleton<IIpcMessageSender, IpcMessageSender>();
                 })
                 .AddLogging()

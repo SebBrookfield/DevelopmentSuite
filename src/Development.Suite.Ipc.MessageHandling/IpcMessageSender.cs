@@ -16,7 +16,7 @@ public class IpcMessageSender : IIpcMessageSender
 
     public async Task SendMessage<TMessage>(TMessage message) where TMessage : IpcModel
     {
-        _logger.LogDebug("Sending message {@message}", message);
+        _logger.LogDebug(" message {@message}", message);
         await _ipcSender.Send(IpcMessage.ToIpcMessage(message));
     }
 }

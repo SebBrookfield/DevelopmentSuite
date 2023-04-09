@@ -3,7 +3,7 @@ using Development.Suite.Ipc.Common;
 
 namespace Development.Suite.Ipc.MessageHandling;
 
-public class ReflectedHandler : IMessageHandler<IpcModel>
+public class ReflectedHandler : IServiceMessageHandler<IpcModel>
 {
     public string Name { get; }
 

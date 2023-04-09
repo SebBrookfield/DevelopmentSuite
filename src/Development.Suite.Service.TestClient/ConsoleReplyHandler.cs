@@ -1,11 +1,10 @@
 ﻿using Development.Suite.Ipc.Common;
 using Development.Suite.Logging;
-using Development.Suite.Plugin;
 using Development.Suite.Plugin.ConsoleRunner;
 
 namespace Development.Suite.Service.TestClient;
 
-public class ConsoleReplyHandler : IMessageHandler<ConsoleMessage>
+public class ConsoleReplyHandler : IClientMessageHandler<ConsoleMessage>
 {
     private readonly IDevelopmentSuiteLogger<ConsoleReplyHandler> _logger;
 

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Development.Suite.App.Plugin;
 using Development.Suite.Ipc;
+using Development.Suite.Ipc.Common;
 using Development.Suite.Ipc.MessageHandling;
 using Development.Suite.Logging;
 
@@ -11,11 +12,11 @@ public class IpcClient
 {
     private readonly IDevelopmentSuiteLogger<IpcClient> _logger;
     private readonly IIpcClient _ipcClient;
-    private readonly IIpcMessageHandler _ipcMessageHandler;
+    private readonly IIpcMessageHandler<IClientMessageHandler> _ipcMessageHandler;
     private readonly IMessenger _messenger;
     private readonly CancellationTokenSource _cancellationTokenSource;
 
-    public IpcClient(IDevelopmentSuiteLogger<IpcClient> logger, IIpcClient ipcClient, IIpcMessageHandler ipcMessageHandler, IMessenger messenger)
+    public IpcClient(IDevelopmentSuiteLogger<IpcClient> logger, IIpcClient ipcClient, IIpcMessageHandler<IClientMessageHandler> ipcMessageHandler, IMessenger messenger)
     {
         _logger = logger;
         _ipcClient = ipcClient;

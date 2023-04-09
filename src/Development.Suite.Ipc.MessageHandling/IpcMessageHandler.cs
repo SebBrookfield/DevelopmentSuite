@@ -5,28 +5,30 @@ using Development.Suite.Logging;
 
 namespace Development.Suite.Ipc.MessageHandling;
 
-public interface IIpcMessageHandler
+public interface IIpcMessageHandler<THandlerType> where THandlerType : IMessageHandler
 {
     Task<IpcModel?> HandleMessage(IpcMessage message);
 }
 
-public class IpcMessageHandler : IIpcMessageHandler
+public class IpcMessageHandler<THandlerType> : IIpcMessageHandler<THandlerType> where THandlerType : IMessageHandler
 {
     private readonly IComponentContext _componentContext;
-    private readonly IDevelopmentSuiteLogger<IpcMessageHandler> _logger;
+    private readonly IDevelopmentSuiteLogger<IpcMessageHandler<THandlerType>> _logger;
     private readonly Type _enumerableType;
     private readonly Type _genericHandlerType;
     private readonly Dictionary<Type, List<ReflectedHandler>> _handlersByType;
     private readonly ILookup<string, Type> _typesByName;
 
-    public IpcMessageHandler(IComponentContext componentContext, IDevelopmentSuiteLogger<IpcMessageHandler> logger)
+    public IpcMessageHandler(IComponentContext componentContext, IDevelopmentSuiteLogger<IpcMessageHandler<THandlerType>> logger)
     {
         var ipcModelType = typeof(IpcModel);
 
         _componentContext = componentContext;
         _logger = logger;
         _enumerableType = typeof(IEnumerable<>);
-        _genericHandlerType = typeof(IMessageHandler<>);
+        _genericHandlerType = typeof(THandlerType) == typeof(IServiceMessageHandler)
+            ? typeof(IServiceMessageHandler<>)
+            : typeof(IClientMessageHandler<>);
         _handlersByType = new Dictionary<Type, List<ReflectedHandler>>();
         _typesByName = AppDomain.CurrentDomain
             .GetAssemblies()

@@ -8,6 +8,6 @@ public class AutofacModule : Module
 {
     protected override void Load(ContainerBuilder builder)
     {
-        builder.RegisterType<ConsoleMessageHandler>().As<IMessageHandler<ConsoleMessage>>();
+        builder.RegisterType<ConsoleMessageHandler>().As<IServiceMessageHandler<ConsoleMessage>>();
     }
 }

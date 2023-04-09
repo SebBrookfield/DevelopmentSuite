@@ -1,4 +1,5 @@
 using Development.Suite.Ipc;
+using Development.Suite.Ipc.Common;
 using Development.Suite.Ipc.MessageHandling;
 using Development.Suite.Logging;
 
@@ -8,9 +9,9 @@ public class IpcWorker : BackgroundService
 {
     private readonly IDevelopmentSuiteLogger<IpcWorker> _logger;
     private readonly IIpcServer _ipcServer;
-    private readonly IIpcMessageHandler _ipcMessageHandler;
+    private readonly IIpcMessageHandler<IServiceMessageHandler> _ipcMessageHandler;
 
-    public IpcWorker(IDevelopmentSuiteLogger<IpcWorker> logger, IIpcServer ipcServer, IIpcMessageHandler ipcMessageHandler)
+    public IpcWorker(IDevelopmentSuiteLogger<IpcWorker> logger, IIpcServer ipcServer, IIpcMessageHandler<IServiceMessageHandler> ipcMessageHandler)
     {
         _logger = logger;
         _ipcServer = ipcServer;

@@ -1,4 +1,5 @@
 ﻿using Development.Suite.Ipc;
+using Development.Suite.Ipc.Common;
 using Development.Suite.Ipc.MessageHandling;
 using Development.Suite.Logging;
 using Microsoft.Extensions.Hosting;
@@ -9,9 +10,9 @@ public class IpcClientWorker : BackgroundService
 {
     private readonly IDevelopmentSuiteLogger<IpcClientWorker> _logger;
     private readonly IIpcClient _ipcClient;
-    private readonly IIpcMessageHandler _ipcMessageHandler;
+    private readonly IIpcMessageHandler<IClientMessageHandler> _ipcMessageHandler;
 
-    public IpcClientWorker(IDevelopmentSuiteLogger<IpcClientWorker> logger, IIpcClient ipcClient, IIpcMessageHandler ipcMessageHandler)
+    public IpcClientWorker(IDevelopmentSuiteLogger<IpcClientWorker> logger, IIpcClient ipcClient, IIpcMessageHandler<IClientMessageHandler> ipcMessageHandler)
     {
         _logger = logger;
         _ipcClient = ipcClient;

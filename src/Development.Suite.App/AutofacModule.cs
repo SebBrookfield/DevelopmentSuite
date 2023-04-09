@@ -20,12 +20,12 @@ public class AutofacModule : Module
     {
         builder.LoadPlugins();
 
-        builder.Register(c => Options.Create(new TcpIpcConfig() { Port = 5388 }));
+        builder.Register(c => Options.Create(new TcpIpcConfig() { Port = 5389 }));
         builder.RegisterType<TcpIpcClient>().SingleInstance();
         builder.Register(c => c.Resolve<TcpIpcClient>()).As<IIpcClient>();
         builder.Register(c => c.Resolve<TcpIpcClient>()).As<IIpcSender>();
         builder.RegisterType<IpcMessageSender>().As<IIpcMessageSender>().SingleInstance();
-        builder.RegisterType<IpcMessageHandler>().As<IIpcMessageHandler>().SingleInstance();
+        builder.RegisterType<IpcMessageHandler<IClientMessageHandler>>().As<IIpcMessageHandler<IClientMessageHandler>>().SingleInstance();
         builder.RegisterType<Messenger>().As<IMessenger>().SingleInstance();
         builder.RegisterType<IpcClient>().SingleInstance();
 

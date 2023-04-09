@@ -20,7 +20,7 @@ namespace Development.Suite.Service.TestClient
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .ConfigureContainer<ContainerBuilder>(builder =>
                 {
-                    builder.RegisterType<ConsoleReplyHandler>().As<IMessageHandler<ConsoleMessage>>();
+                    builder.RegisterType<ConsoleReplyHandler>().As<IServiceMessageHandler<ConsoleMessage>>();
                 })
                 .ConfigureServices((context, services) =>
                 {
@@ -31,7 +31,7 @@ namespace Development.Suite.Service.TestClient
                     services.AddHostedService<ConsoleCaptureWorker>();
                     services.AddHostedService<IpcClientWorker>();
                     services.AddTcpIpcClient(context.Configuration);
-                    services.AddSingleton<IIpcMessageHandler, IpcMessageHandler>();
+                    services.AddSingleton<IIpcMessageHandler<IClientMessageHandler>, IpcMessageHandler<IClientMessageHandler>>();
                     services.AddSingleton<IIpcMessageSender, IpcMessageSender>();
                 })
                 .AddLogging(LogEventLevel.Information)

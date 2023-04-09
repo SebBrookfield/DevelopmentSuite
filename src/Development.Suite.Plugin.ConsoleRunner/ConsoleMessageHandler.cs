@@ -4,7 +4,7 @@ using Development.Suite.Ipc.Common;
 
 namespace Development.Suite.Plugin.ConsoleRunner;
 
-public class ConsoleMessageHandler : IMessageHandler<ConsoleMessage>
+public class ConsoleMessageHandler : IServiceMessageHandler<ConsoleMessage>
 {
     private readonly IDevelopmentSuiteLogger<ConsoleMessageHandler> _logger;
     private readonly IIpcMessageSender _ipcMessageSender;
