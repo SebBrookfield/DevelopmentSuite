@@ -1,5 +1,4 @@
 ﻿using System.Security.Principal;
-using Development.Suite.Ipc;
 using Development.Suite.Logging;
 using Development.Suite.Plugin.ConsoleRunner;
 
