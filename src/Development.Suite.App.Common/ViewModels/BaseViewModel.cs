@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System.ComponentModel;
+using System.Windows;
 
 namespace Development.Suite.App.Common.ViewModels;
 
@@ -11,6 +13,8 @@ public class BaseViewModel : ObservableObject
         get => _loading;
         set => SetProperty(ref _loading, value);
     }
+
+    public bool DesignMode => (bool) DesignerProperties.IsInDesignModeProperty.GetMetadata(typeof(DependencyObject)).DefaultValue;
 
     private bool _loading;
 

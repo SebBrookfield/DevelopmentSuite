@@ -25,13 +25,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Development.Suite.App.Plugi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Development.Suite.App.Plugin.AdminCommand", "Development.Suite.App.Plugin.AdminCommand\Development.Suite.App.Plugin.AdminCommand.csproj", "{B7AB12ED-E6AC-4AAB-9BB7-94ABCA47DB8D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Development.Suite.App.Common", "Development.Suite.App.Common\Development.Suite.App.Common.csproj", "{9A2F0154-DEDC-4862-8381-D7BF6BABCB06}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Development.Suite.App.Common", "Development.Suite.App.Common\Development.Suite.App.Common.csproj", "{9A2F0154-DEDC-4862-8381-D7BF6BABCB06}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Development.Suite.App.Resources", "Development.Suite.App.Resources\Development.Suite.App.Resources.csproj", "{4CBCCE6B-9899-4653-9AA0-81CAAD9C13C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Development.Suite.App.Resources", "Development.Suite.App.Resources\Development.Suite.App.Resources.csproj", "{4CBCCE6B-9899-4653-9AA0-81CAAD9C13C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Development.Suite.App.Controls", "Development.Suite.App.Controls\Development.Suite.App.Controls.csproj", "{1426FE3C-81CA-4D5E-9B1D-E601A0215724}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Development.Suite.App.Controls", "Development.Suite.App.Controls\Development.Suite.App.Controls.csproj", "{1426FE3C-81CA-4D5E-9B1D-E601A0215724}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Development.Suite.Common", "Development.Suite.Common\Development.Suite.Common.csproj", "{E1FBEA5D-8258-492B-8983-1B7C38D9E6BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Development.Suite.Common", "Development.Suite.Common\Development.Suite.Common.csproj", "{E1FBEA5D-8258-492B-8983-1B7C38D9E6BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Development.Suite.App.Plugin.ExampleCommand", "Development.Suite.App.Plugin.ExampleCommand\Development.Suite.App.Plugin.ExampleCommand.csproj", "{205CE956-5B45-4400-AD52-C0E67F8FC8B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,6 +101,10 @@ Global
 		{E1FBEA5D-8258-492B-8983-1B7C38D9E6BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1FBEA5D-8258-492B-8983-1B7C38D9E6BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1FBEA5D-8258-492B-8983-1B7C38D9E6BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{205CE956-5B45-4400-AD52-C0E67F8FC8B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{205CE956-5B45-4400-AD52-C0E67F8FC8B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{205CE956-5B45-4400-AD52-C0E67F8FC8B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{205CE956-5B45-4400-AD52-C0E67F8FC8B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

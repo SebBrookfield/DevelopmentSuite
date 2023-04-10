@@ -22,17 +22,77 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <controls:AdvancedTextBox x:Name="SearchBox" Height="50" Watermark="Start typing..." Text="{Binding SearchTerm, UpdateSourceTrigger=PropertyChanged}" Padding="15 10" CornerRadius="2" Foreground="DimGray" Icon="{StaticResource Icons.FontAwesome.MagnifyingGlass}" FontSize="16" Background="{StaticResource Colours.Translucent.Grey}"/>
+        <controls:AdvancedTextBox x:Name="SearchBox" Height="50" Watermark="Start typing..." Text="{Binding SearchTerm, UpdateSourceTrigger=PropertyChanged}" Padding="15 10" CornerRadius="2" Foreground="DimGray" Icon="{StaticResource Icons.FontAwesome.MagnifyingGlass}" FontSize="16" Background="{StaticResource Colours.Translucent.Grey}">
+            <controls:AdvancedTextBox.InputBindings>
+                <KeyBinding Key="Enter" Command="{Binding SelectFirstCommand}"/>
+                <KeyBinding Key="Escape" Command="{Binding CloseCommand}"/>
+                <KeyBinding Modifiers="Control" Key="Space" Command="{Binding ShowAllCommand}"/>
+            </controls:AdvancedTextBox.InputBindings>
+        </controls:AdvancedTextBox>
 
-        <Border Grid.Row="1" Height="200" Background="{StaticResource Colours.Translucent.Grey}" CornerRadius="2" Padding="15 10" Margin="0 20 0 0" Visibility="{Binding SearchTerm, Converter={StaticResource NullableToVisibilityConverter}}">
+        <Border Grid.Row="1" Background="{StaticResource Colours.Translucent.Grey}" CornerRadius="2" Padding="2" Margin="0 20 0 0"
+                Visibility="{Binding Commands, Converter={StaticResource EnumerableToVisibilityConverter}}">
+
             <ItemsControl ItemsSource="{Binding Commands}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Button Content="{Binding Name}" Command="{Binding Command}"></Button>
+                        <Border x:Name="Container" Padding="8" Height="36">
+                            <Button Command="{Binding Command}">
+                                <Button.Template>
+                                    <ControlTemplate>
+                                        <ContentControl FontSize="14" Content="{Binding Name, Converter={StaticResource BoldHighlightFromAdvancedTextBoxConverter}, ConverterParameter={x:Reference SearchBox}}" ></ContentControl>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </Border>
+                        <DataTemplate.Triggers>
+                            <Trigger Property="ItemsControl.IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource Colours.Translucent.Grey}" TargetName="Container"></Setter>
+                            </Trigger>
+                        </DataTemplate.Triggers>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
+
+                <!-- <ItemsControl.ItemContainerStyle> -->
+                <!--     <Style> -->
+                <!--         <Style.Triggers> -->
+                <!--             <Trigger Property="ItemsControl.AlternationIndex" Value="0"> -->
+                <!--                 <Setter Property="Grid.Background" Value="Red"></Setter> -->
+                <!--             </Trigger> -->
+                <!--             <Trigger Property="ItemsControl.AlternationIndex" Value="1"> -->
+                <!--                 <Setter Property="Grid.Background" Value="Blue"></Setter> -->
+                <!--             </Trigger> -->
+                <!--         </Style.Triggers> -->
+                <!--     </Style> -->
+                <!-- </ItemsControl.ItemContainerStyle> -->
+
+    <!--             <ItemsControl.ItemTemplate> -->
+    <!--                 <DataTemplate> -->
+    <!--                     <Label Content="{Binding -->
+    <!-- RelativeSource={RelativeSource Mode=TemplatedParent},  -->
+    <!-- Path=(ItemsControl.AlternationIndex)}"> -->
+    <!--                         ~1~ <Label.Style> @1@ -->
+    <!--                         ~1~     <Style></Style> @1@ -->
+    <!--                         ~1~ </Label.Style> @1@ -->
+    <!--                     </Label> -->
+    <!--                     ~1~ <Button Content="{Binding }" Command="{Binding Command}"> @1@ -->
+    <!--                     ~1~     <Button.Style> @1@ -->
+    <!--                     ~1~         <Style TargetType="{x:Type Button}"> @1@ -->
+    <!--                     ~1~             <Setter Property="Template"> @1@ -->
+    <!--                     ~1~                 <Setter.Value> @1@ -->
+    <!--                     ~1~                     <ControlTemplate TargetType="Button"> @1@ -->
+    <!--                     ~1~                         <Grid> @1@ -->
+    <!--                     ~1~                             <TextBlock Text="{TemplateBinding Content}" /> @1@ -->
+    <!--                     ~1~                         </Grid> @1@ -->
+    <!--                     ~1~                     </ControlTemplate> @1@ -->
+    <!--                     ~1~                 </Setter.Value> @1@ -->
+    <!--                     ~1~             </Setter> @1@ -->
+    <!--                     ~1~         </Style> @1@ -->
+    <!--                     ~1~     </Button.Style> @1@ -->
+    <!--                     ~1~ </Button> @1@ -->
+    <!--                 </DataTemplate> -->
+    <!--             </ItemsControl.ItemTemplate> -->
             </ItemsControl>
         </Border>
     </Grid>
-
 </Window>

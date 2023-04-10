@@ -39,7 +39,7 @@ public partial class MainWindow
             mainViewModel.OnClose();
     }
 
-    private void SetToBackground()
+    public void SetToBackground()
     {
         WindowState = WindowState.Minimized;
         ShowInTaskbar = false;
