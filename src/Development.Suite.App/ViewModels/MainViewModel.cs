@@ -49,12 +49,12 @@ public class MainViewModel : BaseViewModel
         if (!DesignMode)
             _ipcClient.Start();
 
-        Commands = new List<IPluginCommand>();
 
         _originalCommands = pluginCommands
             .OrderBy(c => c.Name)
             .ToList();
 
+        Commands = new List<IPluginCommand>();
         RunCommand = new RelayCommand<IPluginCommand>(Run);
         CloseCommand = new RelayCommand(SetToBackground);
         SelectFirstCommand = new RelayCommand(() => Run(Commands.FirstOrDefault()));
