@@ -37,10 +37,10 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Border x:Name="Container" Padding="8" Height="36">
-                            <Button Command="{Binding Command}">
+                            <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.RunCommand}" CommandParameter="{Binding}">
                                 <Button.Template>
                                     <ControlTemplate>
-                                        <ContentControl FontSize="14" Content="{Binding Name, Converter={StaticResource BoldHighlightFromAdvancedTextBoxConverter}, ConverterParameter={x:Reference SearchBox}}" ></ContentControl>
+                                        <ContentControl FontSize="14" Content="{Binding Name, Converter={StaticResource BoldHighlightFromAdvancedTextBoxConverter}, ConverterParameter={x:Reference SearchBox}}"/>
                                     </ControlTemplate>
                                 </Button.Template>
                             </Button>

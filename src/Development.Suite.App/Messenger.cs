@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Development.Suite.App.ExtensionMethods;
 using Development.Suite.Ipc.Common;
 using IMessenger = Development.Suite.App.Plugin.IMessenger;
 
@@ -28,25 +29,10 @@ public class Messenger : IMessenger
     public async Task<TReply> Send<TReply, TMessage>(TMessage message, TimeSpan timeout) where TReply : IpcModel where TMessage : IpcModel
     {
         _resetEventById[message.MessageId] = new ManualResetEventSlim(false);
-        await Task.WhenAll(_messageSender.SendMessage(message), CreateResetEventTask(_resetEventById[message.MessageId], timeout));
+        await Task.WhenAll(_messageSender.SendMessage(message), _resetEventById[message.MessageId].WaitAsync(timeout));
         var reply = (TReply) _messagesById[message.MessageId];
         _messagesById.Remove(message.MessageId);
         return reply;
-    }
-
-    private static Task<object> CreateResetEventTask(ManualResetEventSlim manualResetEventSlim, TimeSpan timeout)
-    {
-        var tcs = new TaskCompletionSource<object>();
-        var registration = ThreadPool.RegisterWaitForSingleObject(manualResetEventSlim.WaitHandle, (state, timedOut) =>
-        {
-            var localTcs = (TaskCompletionSource<object>)state;
-            if (timedOut)
-                localTcs.TrySetCanceled();
-            else
-                localTcs.TrySetResult(null);
-        }, tcs, (int) timeout.TotalMilliseconds, executeOnlyOnce: true);
-        tcs.Task.ContinueWith((_, state) => ((RegisteredWaitHandle)state).Unregister(null), registration, TaskScheduler.Default);
-        return tcs.Task;
     }
 
     public async Task Send<TMessage>(TMessage message) where TMessage : IpcModel

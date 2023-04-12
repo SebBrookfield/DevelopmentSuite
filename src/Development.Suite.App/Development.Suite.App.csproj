@@ -23,4 +23,8 @@
     <ProjectReference Include="..\Development.Suite.Logging\Development.Suite.Logging.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ExtensionMethods\" />
+  </ItemGroup>
+
 </Project>

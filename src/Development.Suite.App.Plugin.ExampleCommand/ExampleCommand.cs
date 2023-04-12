@@ -16,6 +16,7 @@ namespace Development.Suite.App.Plugin.ExampleCommand
 
         public Task Execute()
         {
+            _logger.LogDebug($"{nameof(Execute)}");
             new ExampleWindow().Show();
             return Task.CompletedTask;
         }
