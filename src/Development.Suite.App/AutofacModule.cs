@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Development.Suite.App.Common.ExtensionMethods;
 using Development.Suite.App.Plugin;
 using Development.Suite.App.Utilities;
 using Development.Suite.App.ViewModels;
@@ -30,6 +31,6 @@ public class AutofacModule : Module
         builder.RegisterType<IpcClient>().SingleInstance();
 
         builder.RegisterLogging(LogEventLevel.Debug);
-        builder.RegisterType<MainViewModel>();
+        builder.RegisterViewModel<MainViewModel>();
     }
 }

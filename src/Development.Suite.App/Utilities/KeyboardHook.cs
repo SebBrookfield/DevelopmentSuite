@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
@@ -60,6 +61,7 @@ public sealed class KeyboardHook : IDisposable
         }
     }
 
+    [DebuggerStepThrough]
     private void ThreadPreprocessMessage(ref MSG msg, ref bool handled)
     {
         const int wmHotKey = 0x0312;

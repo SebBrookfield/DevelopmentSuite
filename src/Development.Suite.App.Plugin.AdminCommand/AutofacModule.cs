@@ -7,6 +7,7 @@ public class AutofacModule : Module
 {
     protected override void Load(ContainerBuilder builder)
     {
-        builder.RegisterType<AdminCommand>().As<IPluginCommand>();
+        builder.RegisterType<GiveAdminCommand>().As<IPluginCommand>();
+        builder.RegisterType<RemoveAdminCommand>().As<IPluginCommand>();
     }
 }

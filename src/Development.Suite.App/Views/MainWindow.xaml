@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:controls="clr-namespace:Development.Suite.App.Controls;assembly=Development.Suite.App.Controls"
         mc:Ignorable="d"
-        Title="MainWindow"
+        Title="AIQ Development Suite"
         Topmost="True"
         WindowStyle="None"
         SizeToContent="WidthAndHeight"
@@ -15,7 +15,7 @@
         SnapsToDevicePixels="True"
         UseLayoutRounding="True"
         KeyDown="OnKeyDown"
-        DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
+        DataContext="{Binding Source={StaticResource Locator}, Path=[MainViewModel]}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -36,7 +36,7 @@
             <ItemsControl ItemsSource="{Binding Commands}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border x:Name="Container" Padding="8" Height="36">
+                        <Border x:Name="Container" Padding="8" Height="36" ToolTip="{Binding Description}">
                             <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.RunCommand}" CommandParameter="{Binding}">
                                 <Button.Template>
                                     <ControlTemplate>
@@ -52,46 +52,6 @@
                         </DataTemplate.Triggers>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
-
-                <!-- <ItemsControl.ItemContainerStyle> -->
-                <!--     <Style> -->
-                <!--         <Style.Triggers> -->
-                <!--             <Trigger Property="ItemsControl.AlternationIndex" Value="0"> -->
-                <!--                 <Setter Property="Grid.Background" Value="Red"></Setter> -->
-                <!--             </Trigger> -->
-                <!--             <Trigger Property="ItemsControl.AlternationIndex" Value="1"> -->
-                <!--                 <Setter Property="Grid.Background" Value="Blue"></Setter> -->
-                <!--             </Trigger> -->
-                <!--         </Style.Triggers> -->
-                <!--     </Style> -->
-                <!-- </ItemsControl.ItemContainerStyle> -->
-
-    <!--             <ItemsControl.ItemTemplate> -->
-    <!--                 <DataTemplate> -->
-    <!--                     <Label Content="{Binding -->
-    <!-- RelativeSource={RelativeSource Mode=TemplatedParent},  -->
-    <!-- Path=(ItemsControl.AlternationIndex)}"> -->
-    <!--                         ~1~ <Label.Style> @1@ -->
-    <!--                         ~1~     <Style></Style> @1@ -->
-    <!--                         ~1~ </Label.Style> @1@ -->
-    <!--                     </Label> -->
-    <!--                     ~1~ <Button Content="{Binding }" Command="{Binding Command}"> @1@ -->
-    <!--                     ~1~     <Button.Style> @1@ -->
-    <!--                     ~1~         <Style TargetType="{x:Type Button}"> @1@ -->
-    <!--                     ~1~             <Setter Property="Template"> @1@ -->
-    <!--                     ~1~                 <Setter.Value> @1@ -->
-    <!--                     ~1~                     <ControlTemplate TargetType="Button"> @1@ -->
-    <!--                     ~1~                         <Grid> @1@ -->
-    <!--                     ~1~                             <TextBlock Text="{TemplateBinding Content}" /> @1@ -->
-    <!--                     ~1~                         </Grid> @1@ -->
-    <!--                     ~1~                     </ControlTemplate> @1@ -->
-    <!--                     ~1~                 </Setter.Value> @1@ -->
-    <!--                     ~1~             </Setter> @1@ -->
-    <!--                     ~1~         </Style> @1@ -->
-    <!--                     ~1~     </Button.Style> @1@ -->
-    <!--                     ~1~ </Button> @1@ -->
-    <!--                 </DataTemplate> -->
-    <!--             </ItemsControl.ItemTemplate> -->
             </ItemsControl>
         </Border>
     </Grid>
